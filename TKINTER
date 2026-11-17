@@ -1,0 +1,1040 @@
+# =====================================
+#              PYTHON LAB
+# =====================================
+
+import tkinter as tk
+from tkinter import messagebox
+
+
+# COLORS
+BG = "#071E22"
+PANEL = "#0D2B2F"
+LIME = "#C6F135"
+CYAN = "#48DDE5"
+WHITE = "#E8F3F1"
+
+
+# MAIN WINDOW
+window = tk.Tk()
+window.title("PYTHON LAB")
+window.geometry("900x600")
+window.configure(bg=BG)
+window.resizable(False, False)
+
+
+# STUDENT INFORMATION
+student_name = ""
+quiz_scores = []
+
+
+# =====================================
+#             LESSON CONTENTS
+# =====================================
+
+lessons = {
+
+    "PRELIMS - PYTHON BASICS": [
+
+        ("Introduction to Programming",
+         "Programming is the process of giving instructions "
+         "to a computer.\n\n"
+         "Python is a programming language used to create "
+         "different programs.\n\n"
+         "Example:\nprint('Hello World')"),
+
+        ("Python Basic Syntax",
+         "Syntax refers to the rules in writing Python code.\n\n"
+         "Python is case-sensitive. This means uppercase and "
+         "lowercase letters are different.\n\n"
+         "Indentation means spaces at the beginning of a line.\n\n"
+         "Example:\nprint('Welcome to Python')"),
+
+        ("Printing Output",
+         "The print() statement displays information on the screen.\n\n"
+         "Example:\nprint('Hello Python')\nprint(100)\n\n"
+         "Output:\nHello Python\n100"),
+
+        ("Python Comments",
+         "Comments are notes inside the code.\n"
+         "Python does not execute comments.\n\n"
+         "Use the # symbol to write a comment.\n\n"
+         "Example:\n# This is a comment\nprint('Hello')"),
+
+        ("Variables, Constants and Data Types",
+         "Variables store information in a program.\n\n"
+         "A constant is a value intended to remain unchanged.\n\n"
+         "Common data types:\n"
+         "int - whole numbers\n"
+         "float - decimal numbers\n"
+         "str - text\n"
+         "bool - True or False\n\n"
+         "Example:\nname = 'Melanie'\nage = 19"),
+
+        ("Arithmetic Operators and Expressions",
+         "Arithmetic operators are used for calculations.\n\n"
+         "+ Addition\n- Subtraction\n"
+         "* Multiplication\n/ Division\n"
+         "% Modulus\n** Exponent\n// Floor Division\n\n"
+         "Example:\nanswer = 10 + 5\nprint(answer)\n\n"
+         "Output: 15"),
+
+        ("Basic Input and Output",
+         "The input() function allows users to enter information.\n\n"
+         "Example:\nname = input('Enter your name: ')\n"
+         "print('Hello', name)\n\n"
+         "Input is stored as a string by default.\n"
+         "Use int() or float() when converting numbers.")
+    ],
+
+    "MIDTERMS - DECISION MAKING": [
+
+        ("Conditional Statements",
+         "Conditional statements allow a program to make decisions "
+         "based on conditions."),
+
+        ("Relational Operators",
+         "Relational operators compare two values.\n\n"
+         "== Equal to\n!= Not equal to\n"
+         "> Greater than\n< Less than\n"
+         ">= Greater than or equal to\n"
+         "<= Less than or equal to"),
+
+        ("If Statement",
+         "An if statement runs code when a condition is True.\n\n"
+         "Example:\nage = 18\n\n"
+         "if age >= 18:\n    print('Adult')"),
+
+        ("If-Else Statement",
+         "An if-else statement provides two possible results.\n\n"
+         "Example:\nscore = 80\n\n"
+         "if score >= 75:\n"
+         "    print('Passed')\n"
+         "else:\n    print('Failed')"),
+
+        ("If-Elif-Else Statement",
+         "The elif keyword checks another condition.\n\n"
+         "Example:\nscore = 90\n\n"
+         "if score >= 90:\n"
+         "    print('Excellent')\n"
+         "elif score >= 75:\n"
+         "    print('Passed')\n"
+         "else:\n    print('Failed')"),
+
+        ("Nested Conditions",
+         "Nested conditions are conditions placed inside another "
+         "condition.\n\n"
+         "Example:\nage = 20\n\n"
+         "if age >= 18:\n"
+         "    if age <= 60:\n"
+         "        print('Allowed')"),
+
+        ("Logical Operators",
+         "Logical operators combine or change conditions.\n\n"
+         "and - Both conditions must be True.\n"
+         "or - At least one condition must be True.\n"
+         "not - Reverses the result.\n\n"
+         "Example:\nage = 20\n"
+         "if age >= 18 and age <= 30:\n"
+         "    print('Qualified')")
+    ],
+
+    "FINALS - LOOPS AND ITERATION": [
+
+        ("Introduction to Iteration and Loops",
+         "Iteration means repeating instructions in a program.\n\n"
+         "Loops help repeat code without writing the same "
+         "instructions many times."),
+
+        ("Types of Loops",
+         "Python has two main types of loops:\n\n"
+         "1. For Loop\n2. While Loop"),
+
+        ("For Loop",
+         "A for loop repeats instructions for each item in a sequence.\n\n"
+         "Example:\nfor number in range(5):\n"
+         "    print(number)"),
+
+        ("Range Function",
+         "The range() function creates a sequence of numbers.\n\n"
+         "Example:\nfor number in range(1, 6):\n"
+         "    print(number)\n\n"
+         "Output:\n1\n2\n3\n4\n5"),
+
+        ("Counting Up and Down",
+         "A loop can count upward or downward.\n\n"
+         "Counting up:\nfor number in range(1, 6):\n"
+         "    print(number)\n\n"
+         "Counting down:\nfor number in range(5, 0, -1):\n"
+         "    print(number)"),
+
+        ("While Loop",
+         "A while loop repeats instructions while a condition "
+         "is True.\n\n"
+         "Example:\ncount = 1\n\n"
+         "while count <= 5:\n"
+         "    print(count)\n"
+         "    count += 1"),
+
+        ("Repeating Programs",
+         "A loop can repeat a task until a condition becomes False.\n\n"
+         "Example:\ncount = 1\n\n"
+         "while count <= 3:\n"
+         "    print('Welcome!')\n"
+         "    count += 1"),
+
+        ("Practical Loop Exercises",
+         "Loops can be used for:\n\n"
+         "- Counting numbers\n"
+         "- Repeating messages\n"
+         "- Creating number patterns\n"
+         "- Repeating program menus")
+    ]
+}
+
+
+# =====================================
+#             PAGE FRAMES
+# =====================================
+
+welcome_frame = tk.Frame(window, bg=BG)
+dashboard_frame = tk.Frame(window, bg=BG)
+content_frame = tk.Frame(window, bg=BG)
+
+
+# CHANGE PAGE
+def show_frame(frame):
+    welcome_frame.pack_forget()
+    dashboard_frame.pack_forget()
+    content_frame.pack_forget()
+    frame.pack(fill="both", expand=True)
+
+
+# CLEAR CONTENT
+def clear_content():
+    for item in content_frame.winfo_children():
+        item.destroy()
+
+
+# COMMON TITLE
+def make_title(text):
+    tk.Label(
+        content_frame,
+        text=text,
+        font=("Arial", 23, "bold"),
+        fg=LIME,
+        bg=BG
+    ).pack(pady=20)
+   
+   
+# =====================================
+#           WELCOME SCREEN
+# =====================================
+
+def start_lab():
+    global student_name
+
+    student_name = name_entry.get().strip()
+
+    if student_name == "":
+        messagebox.showwarning(
+            "Missing Name",
+            "Please enter your name first!"
+        )
+        return
+
+    show_frame(dashboard_frame)
+    show_dashboard()
+
+
+tk.Label(
+    welcome_frame,
+    text="PYTHON LAB",
+    font=("Arial", 38, "bold"),
+    fg=LIME,
+    bg=BG
+).pack(pady=(100, 5))
+
+tk.Label(
+    welcome_frame,
+    text="LEARN. EXPERIMENT. DEBUG. MASTER.",
+    font=("Arial", 12),
+    fg=CYAN,
+    bg=BG
+).pack(pady=5)
+
+tk.Label(
+    welcome_frame,
+    text="WELCOME TO THE VIRTUAL PYTHON LAB",
+    font=("Arial", 17, "bold"),
+    fg=WHITE,
+    bg=BG
+).pack(pady=35)
+
+tk.Label(
+    welcome_frame,
+    text="Enter your name to begin:",
+    font=("Arial", 12),
+    fg=WHITE,
+    bg=BG
+).pack(pady=5)
+
+name_entry = tk.Entry(
+    welcome_frame,
+    font=("Arial", 14),
+    justify="center",
+    width=25
+)
+name_entry.pack(pady=10)
+
+tk.Button(
+    welcome_frame,
+    text="START LEARNING",
+    font=("Arial", 14, "bold"),
+    bg=LIME,
+    fg=BG,
+    width=20,
+    command=start_lab
+).pack(pady=25)
+
+
+# =====================================
+#             DASHBOARD
+# =====================================
+
+def show_dashboard():
+
+    clear_content()
+    show_frame(dashboard_frame)
+
+    for widget in dashboard_frame.winfo_children():
+        widget.destroy()
+
+    tk.Label(
+        dashboard_frame,
+        text="LAB CONTROL PANEL",
+        font=("Arial", 28, "bold"),
+        fg=LIME,
+        bg=BG
+    ).pack(pady=(30, 5))
+
+    tk.Label(
+        dashboard_frame,
+        text="Welcome, " + student_name + "!",
+        font=("Arial", 14),
+        fg=CYAN,
+        bg=BG
+    ).pack(pady=5)
+
+    buttons = [
+        ("PYTHON TUTORIALS", show_learning_categories),
+        ("QUIZ CENTER", show_quiz_categories),
+        ("CODING PRACTICE", show_practice_menu),
+        ("DEBUGGING CHALLENGE", show_debugging_menu),
+        ("GUESS THE OUTPUT", show_prediction_menu),
+        ("MY PROGRESS", show_progress)
+    ]
+
+    for text, action in buttons:
+
+        tk.Button(
+            dashboard_frame,
+            text=text,
+            font=("Arial", 11, "bold"),
+            bg=LIME,
+            fg=BG,
+            width=30,
+            height=2,
+            command=action
+        ).pack(pady=5)
+
+    tk.Button(
+        dashboard_frame,
+        text="EXIT LAB",
+        font=("Arial", 10, "bold"),
+        bg="#A83232",
+        fg=WHITE,
+        width=15,
+        command=exit_lab
+    ).pack(pady=10)
+
+
+def exit_lab():
+
+    answer = messagebox.askyesno(
+        "Exit Python Lab",
+        "Are you sure you want to exit?"
+    )
+
+    if answer:
+        window.destroy()
+
+
+# =====================================
+#             TUTORIALS
+# =====================================
+
+def show_learning_categories():
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title("PYTHON TUTORIALS")
+
+    for category in lessons:
+
+        tk.Button(
+            content_frame,
+            text=category,
+            font=("Arial", 12, "bold"),
+            bg=LIME,
+            fg=BG,
+            width=38,
+            height=2,
+            command=lambda name=category: show_lesson_list(name)
+        ).pack(pady=8)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO DASHBOARD",
+        bg=CYAN,
+        fg=BG,
+        command=back_to_dashboard
+    ).pack(pady=15)
+
+
+def show_lesson_list(category):
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title(category)
+
+    for lesson_name, lesson_text in lessons[category]:
+
+        tk.Button(
+            content_frame,
+            text=lesson_name,
+            font=("Arial", 10, "bold"),
+            bg=LIME,
+            fg=BG,
+            width=45,
+            command=lambda n=lesson_name, t=lesson_text:
+            show_lesson(n, t, category)
+        ).pack(pady=5)
+
+    tk.Button(
+        content_frame,
+        text="BACK",
+        bg=CYAN,
+        fg=BG,
+        command=show_learning_categories
+    ).pack(pady=12)
+
+
+def show_lesson(name, text, category):
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title(name.upper())
+
+    box = tk.Text(
+        content_frame,
+        font=("Arial", 12),
+        bg=PANEL,
+        fg=WHITE,
+        wrap="word",
+        width=75,
+        height=17
+    )
+
+    box.pack(padx=20, pady=10)
+    box.insert("1.0", text)
+    box.config(state="disabled")
+
+    tk.Button(
+        content_frame,
+        text="BACK TO LESSONS",
+        bg=CYAN,
+        fg=BG,
+        command=lambda: show_lesson_list(category)
+    ).pack(pady=10)
+
+
+def back_to_dashboard():
+    show_dashboard()
+
+
+# =====================================
+#              QUIZ CENTER
+# =====================================
+
+quiz_questions = {
+
+    "PRELIMS": [
+        ("What is Python?",
+         ["A. Programming language", "B. Browser",
+          "C. Computer", "D. Game"], "A"),
+
+        ("Which function displays output?",
+         ["A. input()", "B. print()",
+          "C. int()", "D. type()"], "B"),
+
+        ("Which symbol starts a comment?",
+         ["A. @", "B. //", "C. #", "D. $"], "C"),
+
+        ("Which data type stores whole numbers?",
+         ["A. str", "B. int", "C. float", "D. bool"], "B"),
+
+        ("What is 10 + 5?",
+         ["A. 15", "B. 5", "C. 50", "D. 20"], "A")
+    ],
+
+    "MIDTERMS": [
+        ("What is the purpose of an if statement?",
+         ["A. Repeat code", "B. Make decisions",
+          "C. Print text", "D. Store data"], "B"),
+
+        ("Which operator means equal to?",
+         ["A. =", "B. !=", "C. ==", "D. >"], "C"),
+
+        ("Which keyword checks another condition?",
+         ["A. elif", "B. print", "C. input", "D. range"], "A"),
+
+        ("Which operator requires both conditions to be True?",
+         ["A. or", "B. not", "C. and", "D. if"], "C")
+    ],
+
+    "FINALS": [
+        ("What is iteration?",
+         ["A. Repeating instructions", "B. Deleting code",
+          "C. Printing text", "D. Storing data"], "A"),
+
+        ("What are the two main types of loops?",
+         ["A. If and Else", "B. For and While",
+          "C. Print and Input", "D. And and Or"], "B"),
+
+        ("Which function creates a number sequence?",
+         ["A. print()", "B. input()",
+          "C. range()", "D. type()"], "C"),
+
+        ("Which loop runs while a condition is True?",
+         ["A. If", "B. For only",
+          "C. While", "D. Else"], "C")
+    ]
+}
+
+
+current_quiz = []
+current_question = 0
+current_score = 0
+quiz_active = False
+
+
+def show_quiz_categories():
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title("QUIZ CENTER")
+
+    for category in quiz_questions:
+
+        tk.Button(
+            content_frame,
+            text=category + " QUIZ",
+            font=("Arial", 12, "bold"),
+            bg=LIME,
+            fg=BG,
+            width=30,
+            height=2,
+            command=lambda name=category: start_quiz(name)
+        ).pack(pady=10)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO DASHBOARD",
+        bg=CYAN,
+        fg=BG,
+        command=back_to_dashboard
+    ).pack(pady=15)
+
+
+def start_quiz(category):
+
+    global current_quiz
+    global current_question
+    global current_score
+    global quiz_active
+
+    current_quiz = quiz_questions[category]
+    current_question = 0
+    current_score = 0
+    quiz_active = True
+
+    show_question(category)
+
+
+def show_question(category):
+
+    clear_content()
+    show_frame(content_frame)
+
+    question = current_quiz[current_question]
+
+    make_title(category + " QUIZ")
+
+    tk.Label(
+        content_frame,
+        text="Question " + str(current_question + 1)
+        + " of " + str(len(current_quiz)),
+        fg=CYAN,
+        bg=BG,
+        font=("Arial", 12)
+    ).pack(pady=10)
+
+    tk.Label(
+        content_frame,
+        text=question[0],
+        fg=WHITE,
+        bg=BG,
+        font=("Arial", 14, "bold"),
+        wraplength=750
+    ).pack(pady=20)
+
+    for choice in question[1]:
+
+        tk.Button(
+            content_frame,
+            text=choice,
+            bg=PANEL,
+            fg=WHITE,
+            width=40,
+            height=2,
+            command=lambda answer=choice[0]:
+            check_answer(answer, category)
+        ).pack(pady=5)
+
+
+def check_answer(answer, category):
+
+    global current_score
+    global current_question
+
+    if answer == current_quiz[current_question][2]:
+        current_score += 1
+        messagebox.showinfo("Result", "Correct answer!")
+    else:
+        messagebox.showinfo(
+            "Result",
+            "Incorrect! Correct answer: "
+            + current_quiz[current_question][2]
+        )
+
+    current_question += 1
+
+    if current_question < len(current_quiz):
+        show_question(category)
+    else:
+        finish_quiz(category)
+
+
+def finish_quiz(category):
+
+    global quiz_active
+
+    quiz_active = False
+
+    total = len(current_quiz)
+
+    quiz_scores.append({
+        "name": student_name,
+        "category": category,
+        "score": current_score,
+        "total": total
+    })
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title("QUIZ COMPLETED!")
+
+    tk.Label(
+        content_frame,
+        text="Student: " + student_name,
+        fg=WHITE,
+        bg=BG,
+        font=("Arial", 13)
+    ).pack(pady=10)
+
+    tk.Label(
+        content_frame,
+        text="Your Score: " + str(current_score)
+        + " / " + str(total),
+        fg=CYAN,
+        bg=BG,
+        font=("Arial", 22, "bold")
+    ).pack(pady=20)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO QUIZ CENTER",
+        bg=LIME,
+        fg=BG,
+        command=show_quiz_categories
+    ).pack(pady=10)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO DASHBOARD",
+        bg=CYAN,
+        fg=BG,
+        command=back_to_dashboard
+    ).pack(pady=5)
+    
+# =====================================
+#            CODING PRACTICE
+# =====================================
+
+practice_tasks = {
+
+    "PRINTING OUTPUT":
+        ("Display Hello Python!",
+         "print('Hello Python!')"),
+
+    "VARIABLES":
+        ("Create a variable named age with a value of 19.",
+         "age = 19\nprint(age)"),
+
+    "ARITHMETIC":
+        ("Add 10 and 5.",
+         "print(10 + 5)"),
+
+    "CONDITIONS":
+        ("Check if age is 18 or above.",
+         "age = 19\nif age >= 18:\n    print('Adult')"),
+
+    "LOOPS":
+        ("Display numbers from 1 to 5.",
+         "for number in range(1, 6):\n    print(number)")
+}
+
+
+def show_practice_menu():
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title("CODING PRACTICE")
+
+    for task in practice_tasks:
+
+        tk.Button(
+            content_frame,
+            text=task,
+            bg=LIME,
+            fg=BG,
+            width=30,
+            height=2,
+            command=lambda name=task: open_practice(name)
+        ).pack(pady=8)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO DASHBOARD",
+        bg=CYAN,
+        fg=BG,
+        command=back_to_dashboard
+    ).pack(pady=15)
+
+
+def open_practice(task):
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title(task)
+
+    instruction, example = practice_tasks[task]
+
+    tk.Label(
+        content_frame,
+        text=instruction,
+        fg=WHITE,
+        bg=BG,
+        font=("Arial", 12),
+        wraplength=750
+    ).pack(pady=15)
+
+    code_box = tk.Text(
+        content_frame,
+        width=60,
+        height=8,
+        font=("Courier", 12),
+        bg=PANEL,
+        fg=WHITE
+    )
+    code_box.pack(pady=10)
+
+    def show_example():
+
+        code_box.delete("1.0", "end")
+        code_box.insert("1.0", example)
+
+    tk.Button(
+        content_frame,
+        text="SHOW EXAMPLE ANSWER",
+        bg=LIME,
+        fg=BG,
+        command=show_example
+    ).pack(pady=10)
+
+    tk.Button(
+        content_frame,
+        text="BACK",
+        bg=CYAN,
+        fg=BG,
+        command=show_practice_menu
+    ).pack(pady=5)
+
+
+# =====================================
+#          DEBUGGING CHALLENGES
+# =====================================
+
+debug_questions = [
+    ("print('Hello World'",
+     "Missing closing parenthesis"),
+
+    ("age = 18\nif age >= 18\n    print('Adult')",
+     "Missing colon after the condition"),
+
+    ("for number in range(5)\n    print(number)",
+     "Missing colon after range(5)")
+]
+
+
+def show_debugging_menu():
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title("DEBUGGING CHALLENGES")
+
+    tk.Label(
+        content_frame,
+        text="Find the error in each code example!",
+        fg=WHITE,
+        bg=BG
+    ).pack(pady=10)
+
+    for code, answer in debug_questions:
+
+        box = tk.Frame(content_frame, bg=PANEL)
+        box.pack(pady=8, padx=30, fill="x")
+
+        tk.Label(
+            box,
+            text=code,
+            font=("Courier", 11),
+            fg=CYAN,
+            bg=PANEL
+        ).pack(pady=8)
+
+        tk.Button(
+            box,
+            text="SHOW ANSWER",
+            bg=LIME,
+            fg=BG,
+            command=lambda a=answer:
+            messagebox.showinfo("Correct Answer", a)
+        ).pack(pady=5)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO DASHBOARD",
+        bg=CYAN,
+        fg=BG,
+        command=back_to_dashboard
+    ).pack(pady=12)
+
+
+# =====================================
+#             GUESS THE OUTPUT
+# =====================================
+
+prediction_questions = [
+    ("print(5 + 5)", "10"),
+    ("print('Hello')", "Hello"),
+    ("print(10 * 2)", "20"),
+    ("for x in range(3):\n    print(x)", "0\n1\n2")
+]
+
+prediction_index = 0
+
+
+def show_prediction_menu():
+
+    global prediction_index
+
+    prediction_index = 0
+    show_prediction_question()
+
+
+def show_prediction_question():
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title("GUESS THE OUTPUT")
+
+    if prediction_index >= len(prediction_questions):
+
+        tk.Label(
+            content_frame,
+            text="YOU FINISHED ALL QUESTIONS!",
+            fg=LIME,
+            bg=BG,
+            font=("Arial", 16, "bold")
+        ).pack(pady=40)
+
+        tk.Button(
+            content_frame,
+            text="BACK TO DASHBOARD",
+            bg=CYAN,
+            fg=BG,
+            command=back_to_dashboard
+        ).pack()
+
+        return
+
+    code, answer = prediction_questions[prediction_index]
+
+    tk.Label(
+        content_frame,
+        text="What will this code display?",
+        fg=WHITE,
+        bg=BG,
+        font=("Arial", 13)
+    ).pack(pady=15)
+
+    tk.Label(
+        content_frame,
+        text=code,
+        fg=CYAN,
+        bg=PANEL,
+        font=("Courier", 14),
+        padx=20,
+        pady=20
+    ).pack(pady=15)
+
+    answer_entry = tk.Entry(
+        content_frame,
+        font=("Arial", 13),
+        justify="center",
+        width=30
+    )
+    answer_entry.pack(pady=10)
+
+    def check_prediction():
+
+        global prediction_index
+
+        if answer_entry.get().strip() == answer:
+
+            messagebox.showinfo("Result", "Correct!")
+        else:
+
+            messagebox.showinfo(
+                "Result",
+                "Correct output:\n" + answer
+            )
+
+        prediction_index += 1
+        show_prediction_question()
+
+    tk.Button(
+        content_frame,
+        text="CHECK ANSWER",
+        bg=LIME,
+        fg=BG,
+        command=check_prediction
+    ).pack(pady=10)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO DASHBOARD",
+        bg=CYAN,
+        fg=BG,
+        command=back_to_dashboard
+    ).pack(pady=5)
+
+
+# =====================================
+#             MY PROGRESS
+# =====================================
+
+def show_progress():
+
+    clear_content()
+    show_frame(content_frame)
+
+    make_title("MY PROGRESS")
+
+    tk.Label(
+        content_frame,
+        text="Student: " + student_name,
+        fg=WHITE,
+        bg=BG,
+        font=("Arial", 14)
+    ).pack(pady=10)
+
+    if len(quiz_scores) == 0:
+
+        tk.Label(
+            content_frame,
+            text="No quiz records yet. Take a quiz first!",
+            fg=CYAN,
+            bg=BG,
+            font=("Arial", 12)
+        ).pack(pady=20)
+
+    else:
+
+        for record in quiz_scores:
+
+            result = (
+                record["category"] + " : "
+                + str(record["score"]) + " / "
+                + str(record["total"])
+            )
+
+            tk.Label(
+                content_frame,
+                text=result,
+                fg=WHITE,
+                bg=PANEL,
+                font=("Arial", 12),
+                width=35,
+                pady=8
+            ).pack(pady=5)
+
+    tk.Button(
+        content_frame,
+        text="BACK TO DASHBOARD",
+        bg=CYAN,
+        fg=BG,
+        command=back_to_dashboard
+    ).pack(pady=20)
+
+
+# =====================================
+#              RUN PROGRAM
+# =====================================
+
+welcome_frame.pack(
+    fill="both",
+    expand=True
+)
+
+window.mainloop()
